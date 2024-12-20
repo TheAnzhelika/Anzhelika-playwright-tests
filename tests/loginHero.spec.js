@@ -2,21 +2,21 @@ import { test, expect } from '@playwright/test';
 import { LoginHero, LOG_IN_MESSAGES } from '../pages/loginHero.page';
 
 test.describe('Login page', () => {
-    let loginPage;
+	let loginPage;
 
 	test.beforeEach(async ({ page }) => {
 		loginPage = new LoginHero(page);
 		await loginPage.navigate();
 	})
 
-    test('Login with Correct Username and Correct Password', async () => {
+	test('Login with Correct Username and Correct Password', async () => {
 
-        await loginPage.loginForm('tomsmith', 'SuperSecretPassword!');
+		await loginPage.loginForm('tomsmith', 'SuperSecretPassword!');
 
 		await expect(loginPage.flash).toContainText(LOG_IN_MESSAGES.SUCCESS);
 		await expect(loginPage.area).toContainText(LOG_IN_MESSAGES.AREA_NAME);
 		await expect(loginPage.subheader).toContainText(LOG_IN_MESSAGES.WELCOME);
-    })
+	})
 
 	test('Login with Correct Username and Wrong Password', async () => {
 
@@ -45,5 +45,4 @@ test.describe('Login page', () => {
 
 		await expect(loginPage.error).toContainText(LOG_IN_MESSAGES.ERROR_USERNAME);
 	})
-
 })
